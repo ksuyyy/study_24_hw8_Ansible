@@ -24,8 +24,8 @@
         clone: yes
         update: yes
 
-    - name: Download Boxfuse artifact from Maven Central
-      community.general.maven_artifact:
+    - name: Download Boxfuse artifact from Maven Local
+      maven_artifact:
         group_id: ??
         artifact_id: hello-1.0
         dest: tmp/boxfuse-sample-java-war-hello.war
