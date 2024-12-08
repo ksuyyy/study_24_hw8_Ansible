@@ -1,0 +1,54 @@
+---
+- name: Install default-jdk, maven, git
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ packages }} state: present"
+        with packages:
+          - default-jdk
+          - maven
+          - git
+
+- name: Boxfuse application build
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Clone a github repository
+      git:
+        repo: https://github.com/boxfuse/boxfuse-sample-java-war-hello.git
+        dest: /tmp/boxfuse-sample-java-war-hello
+        clone: yes
+        update: yes
+
+    - name: Download Boxfuse artifact from Maven Central
+      community.general.maven_artifact:
+        group_id: junit
+        artifact_id: junit
+        dest: tmp/boxfuse-sample-java-war-hello.war
+
+    - name: Download a WAR File to the Tomcat webapps directory to be deployed
+      maven_artifact:
+        group_id: ??
+        artifact_id: hello-1.0
+        extension: war
+        repository_url: ??
+        dest: /usr/local/tomcat/webapps/hello-1.0.war
+
+- name: Launching application in tomcat
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install tomcat
+      apt:
+        name: tomcat
+        state: present
+
+    - name: Ensure tomcat is present
+      service:
+        name: tomcat
+        state: started
