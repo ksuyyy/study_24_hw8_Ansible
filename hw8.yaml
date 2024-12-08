@@ -26,8 +26,8 @@
 
     - name: Download Boxfuse artifact from Maven Central
       community.general.maven_artifact:
-        group_id: junit
-        artifact_id: junit
+        group_id: ??
+        artifact_id: hello-1.0
         dest: tmp/boxfuse-sample-java-war-hello.war
 
     - name: Download a WAR File to the Tomcat webapps directory to be deployed
