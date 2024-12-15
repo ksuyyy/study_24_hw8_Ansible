@@ -46,7 +46,6 @@
       synchronize:
         src: /target/hello-1.0.war
         dest: /var/lib/tomcat9/webapps/
-        delegate_to: 212.111.84.186
 
     - name: Ensure tomcat is present
       service:
