@@ -26,8 +26,8 @@
 
     - name: Download Boxfuse artifact from Maven Local
       shell: "mvn package"
-        arg:
-        chdir: tmp/boxfuse-sample-java-war-hello
+      arg:
+        chdir: /tmp/boxfuse-sample-java-war-hello
 
 - name: Launching application in tomcat
   hosts: web
