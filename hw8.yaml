@@ -9,7 +9,6 @@
         name: " {{ packages }} "
         state: present
         with packages:
-          - default-jdk
           - maven
           - git
 
