@@ -43,8 +43,8 @@
         - tomcat9
 
     - name: Transfer WAR File to web
-      synchronize:
-        src: /target/hello-1.0.war
+      copy:
+        src: /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war
         dest: /var/lib/tomcat9/webapps/
 
     - name: Ensure tomcat is present
