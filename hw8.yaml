@@ -6,11 +6,11 @@
   tasks:
     - name: Install packages
       apt:
-        name: " {{ packages }} "
+        name: " {{ item }} "
         state: present
-        with packages:
-          - maven
-          - git
+      with_items:
+        - maven
+        - git
 
 - name: Boxfuse application build
   hosts: localhost
@@ -24,9 +24,9 @@
         clone: yes
         update: yes
 
-    - name: Download Boxfuse artifact from Maven Local
+    - name: Get Boxfuse artifact from Maven
       shell: "mvn package"
-      arg:
+      args:
         chdir: /tmp/boxfuse-sample-java-war-hello
 
 - name: Launching application in tomcat
@@ -36,19 +36,19 @@
   tasks:
     - name: Install default-jdk, tomcat
       apt:
-        name: " {{ packages }} "
+        name: " {{ item }} "
         state: present
-        with packages:
-          - default-jdk
-          - tomcat
+      with_items:
+        - default-jdk
+        - tomcat9
 
     - name: Transfer WAR File to web
       synchronize:
         src: /target/hello-1.0.war
-        dest: /usr/local/tomcat/webapps/
+        dest: /var/lib/tomcat9/webapps/
         delegate_to: 212.111.84.186
 
     - name: Ensure tomcat is present
       service:
-        name: tomcat
+        name: tomcat9
         state: started
